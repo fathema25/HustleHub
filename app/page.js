@@ -1,5 +1,7 @@
 "use client";
 import { useState } from 'react';
+import { db } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function Home() {
   const [showPostTask, setShowPostTask] = useState(false);
@@ -10,10 +12,32 @@ export default function Home() {
     description: ""
   });
 
-  const handlePost = (e) => {
+  // Updated handlePost to save to Firebase
+  const handlePost = async (e) => {
     e.preventDefault();
-    setShowPostTask(false);
-    alert("Task posted successfully!");
+
+    try {
+      // Sending data to Firestore
+      const docRef = await addDoc(collection(db, "tasks"), {
+        title: taskData.title,
+        budget: taskData.budget,
+        deadline: taskData.deadline,
+        description: taskData.description,
+        status: "open",
+        createdAt: serverTimestamp(),
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+      setShowPostTask(false);
+      alert("Task posted successfully to the cloud! 🚀");
+
+      // Reset form data
+      setTaskData({ title: "", budget: "", deadline: "", description: "" });
+
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      alert("Error posting task. Check console for details.");
+    }
   };
 
   return (
@@ -59,7 +83,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* POST A TASK OVERLAY */}
+      {/* Post a task overlay */}
       {showPostTask && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-end justify-center pb-6 px-10"
@@ -93,6 +117,7 @@ export default function Home() {
                       <input
                         type="number"
                         placeholder="Amount"
+                        value={taskData.budget}
                         className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-2xl px-5 py-3 text-sm outline-none focus:border-brand-brown transition-all"
                         required
                         onChange={(e) => setTaskData({ ...taskData, budget: e.target.value })}
@@ -102,6 +127,7 @@ export default function Home() {
                       <label className="text-[10px] font-black text-black opacity-30 uppercase tracking-widest ml-2">Deadline</label>
                       <input
                         type="date"
+                        value={taskData.deadline}
                         className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-2xl px-5 py-3 text-sm outline-none focus:border-brand-brown transition-all"
                         required
                         onChange={(e) => setTaskData({ ...taskData, deadline: e.target.value })}
@@ -117,6 +143,7 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="e.g. Debugging React App"
+                      value={taskData.title}
                       className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-3xl px-8 py-5 text-lg font-bold outline-none focus:border-brand-brown transition-all"
                       required
                       onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}
@@ -127,6 +154,7 @@ export default function Home() {
                     <label className="text-[10px] font-black text-black opacity-30 uppercase tracking-widest ml-2">Details</label>
                     <textarea
                       placeholder="Describe the task instructions..."
+                      value={taskData.description}
                       className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-[40px] px-8 py-6 text-sm font-medium leading-relaxed italic h-36 resize-none outline-none focus:border-brand-brown transition-all"
                       required
                       onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}
