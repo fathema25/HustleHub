@@ -1,65 +1,150 @@
-import Image from "next/image";
+"use client";
+import { useState } from 'react';
 
 export default function Home() {
+  const [showPostTask, setShowPostTask] = useState(false);
+  const [taskData, setTaskData] = useState({
+    title: "",
+    budget: "",
+    deadline: "",
+    description: ""
+  });
+
+  const handlePost = (e) => {
+    e.preventDefault();
+    setShowPostTask(false);
+    alert("Task posted successfully!");
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="max-w-5xl">
+      <header className="mb-16">
+        <h1 className="text-6xl font-normal text-brand-dark tracking-tight">
+          Welcome back, <span className="text-brand-brown italic font-bold underline decoration-brand-cream underline-offset-8">Hustler</span>
+        </h1>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        {/* Main Action Card */}
+        <div className="bg-brand-brown p-12 rounded-[40px] text-white shadow-2xl shadow-brand-brown/20 relative overflow-hidden group">
+          <div className="relative z-10">
+            <h2 className="text-4xl font-bold mb-4 tracking-tight">Need a hand?</h2>
+            <p className="text-white font-normal mb-10 text-sm max-w-[240px] opacity-90 leading-relaxed">
+              Post a new task and find the perfect student for the job in minutes.
+            </p>
+            <button
+              onClick={() => setShowPostTask(true)}
+              className="inline-block bg-white text-brand-brown px-10 py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-xl"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Post a Task
+            </button>
+          </div>
+          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-white/10 rounded-full group-hover:scale-110 transition-transform duration-700"></div>
+        </div>
+
+        {/* Earnings Card */}
+        <div className="bg-white p-12 rounded-[40px] border-2 border-brand-cream shadow-sm flex flex-col justify-center">
+          <h2 className="text-[10px] font-bold text-black uppercase tracking-[0.2em] mb-3 opacity-30">
+            Semester Revenue
+          </h2>
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold text-black tracking-tight">$245.00</span>
+            <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md tracking-tighter">
+              +12%
+            </span>
+          </div>
+          <p className="text-[11px] font-medium text-black mt-4 opacity-60 leading-relaxed">
+            Your earnings are up from last month. Keep up the hustle!
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </div>
+
+      {/* POST A TASK OVERLAY */}
+      {showPostTask && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-end justify-center pb-6 px-10"
+          onClick={() => setShowPostTask(false)}
+        >
+          <div
+            className="relative w-full max-w-[800px] bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-12 animate-in slide-in-from-bottom-10 duration-500"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPostTask(false)}
+              className="absolute top-8 right-10 w-10 h-10 bg-brand-light rounded-full flex items-center justify-center text-black font-bold hover:bg-brand-cream transition-all z-20"
+            >
+              ✕
+            </button>
+
+            <form onSubmit={handlePost}>
+              <div className="flex flex-col md:flex-row gap-12 items-start">
+                {/* Left Section */}
+                <div className="w-full md:w-[40%] text-center md:border-r border-brand-cream/40 md:pr-10">
+                  <div className="w-24 h-24 bg-brand-brown text-white rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold shadow-lg">
+                    +
+                  </div>
+                  <h2 className="text-4xl font-black text-black tracking-tight">New Task</h2>
+                  <p className="text-brand-brown font-bold italic text-sm mt-1 mb-8">Ready to hustle?</p>
+
+                  <div className="space-y-5 text-left">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-black opacity-30 uppercase tracking-widest ml-2">Budget ($)</label>
+                      <input
+                        type="number"
+                        placeholder="Amount"
+                        className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-2xl px-5 py-3 text-sm outline-none focus:border-brand-brown transition-all"
+                        required
+                        onChange={(e) => setTaskData({ ...taskData, budget: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-black opacity-30 uppercase tracking-widest ml-2">Deadline</label>
+                      <input
+                        type="date"
+                        className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-2xl px-5 py-3 text-sm outline-none focus:border-brand-brown transition-all"
+                        required
+                        onChange={(e) => setTaskData({ ...taskData, deadline: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Section */}
+                <div className="w-full md:w-[60%] space-y-6 self-center">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-black opacity-30 uppercase tracking-widest ml-2">What do you need?</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Debugging React App"
+                      className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-3xl px-8 py-5 text-lg font-bold outline-none focus:border-brand-brown transition-all"
+                      required
+                      onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-black opacity-30 uppercase tracking-widest ml-2">Details</label>
+                    <textarea
+                      placeholder="Describe the task instructions..."
+                      className="w-full bg-brand-light/40 border border-brand-cream/30 rounded-[40px] px-8 py-6 text-sm font-medium leading-relaxed italic h-36 resize-none outline-none focus:border-brand-brown transition-all"
+                      required
+                      onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-brand-brown text-white py-5 rounded-full font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-brand-brown/20"
+                  >
+                    Confirm & Post Task
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-      </main>
+      )}
     </div>
   );
 }
