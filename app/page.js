@@ -1,7 +1,11 @@
 "use client";
 import { useState } from 'react';
 import { db } from "../firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "firebase/firestore";
 
 export default function Home() {
   const [showPostTask, setShowPostTask] = useState(false);
@@ -12,12 +16,11 @@ export default function Home() {
     description: ""
   });
 
-  // Updated handlePost to save to Firebase
+  // handlePost saves to Firebase and closes the overlay
   const handlePost = async (e) => {
     e.preventDefault();
 
     try {
-      // Sending data to Firestore
       const docRef = await addDoc(collection(db, "tasks"), {
         title: taskData.title,
         budget: taskData.budget,
@@ -41,19 +44,19 @@ export default function Home() {
   };
 
   return (
-    <div className="max-w-5xl">
+    <div className="max-w-5xl mx-auto px-4 py-12">
       <header className="mb-16">
         <h1 className="text-6xl font-normal text-brand-dark tracking-tight">
           Welcome back, <span className="text-brand-brown italic font-bold underline decoration-brand-cream underline-offset-8">Hustler</span>
         </h1>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-20">
         {/* Main Action Card */}
         <div className="bg-brand-brown p-12 rounded-[40px] text-white shadow-2xl shadow-brand-brown/20 relative overflow-hidden group">
           <div className="relative z-10">
             <h2 className="text-4xl font-bold mb-4 tracking-tight">Need a hand?</h2>
-            <p className="text-white font-normal mb-10 text-sm max-w-[240px] opacity-90 leading-relaxed">
+            <p className="text-white font-normal mb-10 text-sm max-w-60 opacity-90 leading-relaxed">
               Post a new task and find the perfect student for the job in minutes.
             </p>
             <button
@@ -90,7 +93,7 @@ export default function Home() {
           onClick={() => setShowPostTask(false)}
         >
           <div
-            className="relative w-full max-w-[800px] bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-12 animate-in slide-in-from-bottom-10 duration-500"
+            className="relative w-full max-w-200 bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-12 animate-in slide-in-from-bottom-10 duration-500"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}

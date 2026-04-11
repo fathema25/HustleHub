@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import Link from 'next/link'; // Import this to make the link work
+import Link from 'next/link'; 
 
 export default function MyTasks() {
   const [filter, setFilter] = useState('Active');
@@ -46,7 +46,6 @@ export default function MyTasks() {
 
   return (
     <div className="max-w-6xl mx-auto py-10">
-      {/* Navigation Link Added Here */}
       <Link
         href="/all-tasks"
         className="text-[10px] font-black tracking-[0.2em] text-black opacity-40 hover:opacity-100 mb-4 inline-block transition-all"
@@ -84,8 +83,8 @@ export default function MyTasks() {
           filteredTasks.map(task => (
             <div key={task.id} className="bg-white p-6 pl-10 pr-10 rounded-[80px] border-2 border-brand-cream hover:border-brand-brown/30 transition-all flex flex-col md:flex-row items-center justify-between gap-8 group">
 
-              {/* Left: Status Badge */}
-              <div className="flex items-center gap-6 min-w-[280px]">
+              {/* Status Badge */}
+              <div className="flex items-center gap-6 min-w-70">
                 <div className="w-20 h-20 bg-brand-light border-2 border-brand-cream rounded-full flex flex-col items-center justify-center shadow-inner relative">
                   <div className={`absolute top-0 right-0 w-4 h-4 ${task.color} rounded-full border-2 border-white ${task.status !== 'Completed' && 'animate-pulse'}`}></div>
                   <span className="text-[9px] font-black text-black uppercase tracking-tighter opacity-30">Status</span>
@@ -99,14 +98,14 @@ export default function MyTasks() {
                 </div>
               </div>
 
-              {/* Middle: Description */}
+              {/*Description */}
               <div className="flex-1 border-x border-brand-cream/50 px-8 hidden lg:block">
                 <p className="text-sm text-black font-medium italic">
                   "{task.description}"
                 </p>
               </div>
 
-              {/* Right: Meta Info */}
+              {/*Meta Info */}
               <div className="flex items-center gap-12 pr-4">
                 <div className="text-center">
                   <p className="text-[9px] font-black text-black uppercase tracking-widest mb-1 opacity-30">
@@ -115,7 +114,7 @@ export default function MyTasks() {
                   <p className="text-sm font-bold text-black">{task.deadline}</p>
                 </div>
 
-                <div className="text-right min-w-[100px]">
+                <div className="text-right min-w-25">
                   <p className="text-[9px] font-black text-black uppercase tracking-widest mb-1 opacity-30 text-right">Budget</p>
                   <p className="text-2xl font-black text-black">${task.budget.toFixed(2)}</p>
                 </div>

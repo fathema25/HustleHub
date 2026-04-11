@@ -60,7 +60,7 @@ export default function ReviewPage() {
         </div>
 
         {/* SUMMARY RATING BOX */}
-        <div className="bg-white border-[4px] border-brand-brown/10 rounded-[40px] px-10 py-6 text-center shadow-sm">
+        <div className="bg-white border-4 border-brand-brown/10 rounded-[40px] px-10 py-6 text-center shadow-sm">
           <p className="text-[10px] font-black text-brand-brown opacity-40 uppercase tracking-widest mb-1">Overall Rating</p>
           <div className="flex items-center gap-3">
             <span className="text-4xl font-black text-black">4.9</span>
@@ -114,7 +114,7 @@ export default function ReviewPage() {
                 </p>
 
                 <div className="mt-6 flex items-center gap-2">
-                  <div className="h-[2px] w-8 bg-brand-brown/20" />
+                  <div className="h-0.5 w-8 bg-brand-brown/20" />
                   <span className="text-[9px] font-black text-brand-brown/40 uppercase tracking-widest">Verified Completion</span>
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function ReviewPage() {
         ))}
       </div>
 
-      {/* FOOTER SPACE */}
+      {/* FOOTER */}
       <div className="py-20 text-center">
         <p className="text-[10px] font-black text-brand-brown/20 uppercase tracking-[0.5em]">End of Reviews</p>
       </div>

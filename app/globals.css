@@ -11,3 +11,22 @@ body {
   background-color: var(--color-brand-light);
   color: var(--color-brand-dark);
 }
+
+
+
+/* Hides the default eye icon in Microsoft Edge and Chrome */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+}
+
+
+input:focus {
+  outline: none;
+}

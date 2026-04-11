@@ -52,7 +52,7 @@ export default function AllUsers() {
       <div className="grid grid-cols-1 gap-6">
         {users.map(user => (
           <div key={user.id} className="bg-white p-6 pl-10 pr-10 rounded-[80px] border-2 border-brand-cream hover:border-brand-brown/30 transition-all flex flex-col md:flex-row items-center justify-between gap-8 group">
-            <div className="flex items-center gap-6 min-w-[300px]">
+            <div className="flex items-center gap-6 min-w-75">
               <div className="w-20 h-20 bg-brand-light border-2 border-brand-cream rounded-full flex items-center justify-center text-2xl font-bold text-black shadow-inner">
                 {user.name.charAt(0)}
               </div>
@@ -89,18 +89,18 @@ export default function AllUsers() {
         ))}
       </div>
 
-      {/* CENTER-BOTTOM HORIZONTAL CARD */}
+      {/*  HORIZONTAL CARD */}
       {selectedUser && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-md z- flex items-end justify-center pb-20 px-10"
           onClick={() => setSelectedUser(null)}
         >
           <div
-            className="relative w-full max-w-[750px] bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-10 animate-in slide-in-from-bottom-10 duration-500"
+            className="relative w-full max-w-187.5 bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-10 animate-in slide-in-from-bottom-10 duration-500"
             onClick={(e) => e.stopPropagation()}
           >
 
-            {/* Proper X Button */}
+            {/* X Button */}
             <button
               onClick={() => setSelectedUser(null)}
               className="absolute top-6 right-8 w-10 h-10 bg-brand-light rounded-full flex items-center justify-center text-black font-bold hover:bg-brand-cream transition-all shadow-sm z-20"
@@ -110,7 +110,7 @@ export default function AllUsers() {
 
             <div className="flex flex-col md:flex-row gap-10 items-center">
 
-              {/* Left Side: Identity */}
+              {/*Identity */}
               <div className="w-full md:w-[40%] text-center md:border-r border-brand-cream/40 md:pr-10">
                 <div className="w-24 h-24 bg-brand-light border-4 border-brand-cream rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-black shadow-inner">
                   {selectedUser.name.charAt(0)}
@@ -126,7 +126,7 @@ export default function AllUsers() {
                 </div>
               </div>
 
-              {/* Right Side: Stats & Details */}
+              {/* Stats & Details */}
               <div className="w-full md:w-[60%] space-y-6">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-brand-light/40 p-4 rounded-[25px] border border-brand-cream/30">
