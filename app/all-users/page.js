@@ -40,8 +40,13 @@ export default function AllUsers() {
     }
   ];
 
+  const handleHireRequest = (userName) => {
+    alert(`Success! Your interest has been sent to ${userName}. They will reach out to you via email if they're interested in the gig.`);
+    setSelectedUser(null);
+  };
+
   return (
-    <div className="max-w-6xl mx-auto relative">
+    <div className="max-w-6xl mx-auto relative px-4 py-10">
       <header className="mb-12">
         <h1 className="text-6xl font-normal text-black tracking-tight">
           Top <span className="text-brand-brown italic font-bold underline decoration-brand-cream underline-offset-8">Hustlers</span>
@@ -63,7 +68,7 @@ export default function AllUsers() {
             </div>
 
             <div className="flex-1 border-x border-brand-cream/50 px-8 hidden lg:block">
-              <p className="text-sm text-black font-medium italic mb-3">"{user.bio}"</p>
+              <p className="text-sm text-black font-medium italic mb-3">&ldquo;{user.bio}&rdquo;</p>
               <div className="flex gap-2">
                 {user.skills.slice(0, 2).map(skill => (
                   <span key={skill} className="bg-brand-light px-3 py-1 rounded-full text-[10px] font-bold text-black border border-brand-cream">
@@ -89,14 +94,14 @@ export default function AllUsers() {
         ))}
       </div>
 
-      {/*  HORIZONTAL CARD */}
+      {/* MODAL CARD */}
       {selectedUser && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-md z- flex items-end justify-center pb-20 px-10"
+          className="fixed inset-0 bg-black/60 backdrop-blur-md z-100 flex items-center justify-center p-6 md:p-10"
           onClick={() => setSelectedUser(null)}
         >
           <div
-            className="relative w-full max-w-187.5 bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-10 animate-in slide-in-from-bottom-10 duration-500"
+            className="relative w-full max-w-187.5 bg-white rounded-[60px] shadow-2xl border-4 border-brand-cream p-10 animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
 
@@ -110,7 +115,7 @@ export default function AllUsers() {
 
             <div className="flex flex-col md:flex-row gap-10 items-center">
 
-              {/*Identity */}
+              {/* Identity Section */}
               <div className="w-full md:w-[40%] text-center md:border-r border-brand-cream/40 md:pr-10">
                 <div className="w-24 h-24 bg-brand-light border-4 border-brand-cream rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-black shadow-inner">
                   {selectedUser.name.charAt(0)}
@@ -126,7 +131,7 @@ export default function AllUsers() {
                 </div>
               </div>
 
-              {/* Stats & Details */}
+              {/* Stats & Details Section */}
               <div className="w-full md:w-[60%] space-y-6">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-brand-light/40 p-4 rounded-[25px] border border-brand-cream/30">
@@ -153,15 +158,17 @@ export default function AllUsers() {
                 <div>
                   <h3 className="text-[9px] font-black text-black uppercase tracking-widest mb-1 opacity-40">About</h3>
                   <p className="text-[13px] text-black font-medium leading-relaxed italic border-l-2 border-brand-brown/20 pl-4">
-                    "{selectedUser.bio}"
+                    &ldquo;{selectedUser.bio}&rdquo;
                   </p>
                 </div>
 
-                <button className="w-full bg-brand-brown text-white py-4 rounded-full font-bold text-sm hover:scale-[1.01] active:scale-[0.98] transition-all shadow-lg shadow-brand-brown/15 mt-2">
+                <button 
+                  onClick={() => handleHireRequest(selectedUser.name)}
+                  className="w-full bg-brand-brown text-white py-4 rounded-full font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-brand-brown/15 mt-2"
+                >
                   Message to Hire
                 </button>
               </div>
-
             </div>
           </div>
         </div>
