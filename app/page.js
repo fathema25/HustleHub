@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { db } from "../firebase";
+import { db, auth } from "../firebase"; 
 import {
   collection,
   addDoc,
@@ -20,6 +20,12 @@ export default function Home() {
   const handlePost = async (e) => {
     e.preventDefault();
 
+    // Check if user is logged in before allowing a post
+    if (!auth.currentUser) {
+      alert("You must be logged in to post a task!");
+      return;
+    }
+
     try {
       const docRef = await addDoc(collection(db, "tasks"), {
         title: taskData.title,
@@ -28,6 +34,9 @@ export default function Home() {
         description: taskData.description,
         status: "open",
         createdAt: serverTimestamp(),
+        // Linking the task to the current logged-in user
+        creatorId: auth.currentUser.uid,
+        creatorEmail: auth.currentUser.email,
       });
 
       console.log("Document written with ID: ", docRef.id);
